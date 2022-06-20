@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -35,11 +36,26 @@ public class UserController {
             obj.put(Constant.USER_ID, newUser.getUserId());
             obj.put(Constant.USERNAME, newUser.getUsername());
             obj.put(Constant.USER_TYPE, newUser.getUserType());
-//            SessionUtil.setSession(obj);
             JSONObject data = JSONObject.fromObject(newUser);
             data.remove(Constant.PASSWORD);
             return MsgUtil.makeMsg(MsgCode.SUCCESS,MsgUtil.SIGNUP_SUCCESS_MSG,data);
         }
     }
 
+    @RequestMapping("/getUserList")
+    public List<User> getUserList(){return userService.getUserList();}
+
+    @RequestMapping("/addToBlacklist")
+    public List<User> addToBlacklist(@RequestBody Map params){
+        Integer userId = (Integer) params.get(Constant.USER_ID);
+        userService.addToBlacklist(userId);
+        return getUserList();
+    }
+
+    @RequestMapping("/removeFromBlacklist")
+    public List<User> removeFromBlacklist(@RequestBody Map params){
+        Integer userId = (Integer) params.get(Constant.USER_ID);
+        userService.removeFromBlacklist(userId);
+        return getUserList();
+    }
 }

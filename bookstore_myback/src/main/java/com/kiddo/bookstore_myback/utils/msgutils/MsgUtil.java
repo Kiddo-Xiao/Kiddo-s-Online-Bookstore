@@ -25,6 +25,7 @@ public class MsgUtil {
     public static final String NOT_LOGGED_IN_ERROR_MSG = "登录失效，请重新登录！";
     public static final String SIGNUP_NAME_ERR_MSG = "用户名已存在！";
     public static final String SIGNUP_SUCCESS_MSG = "创建成功，请登录！";
+    public static final String IN_BLACKLIST = "您已被加入黑名单，无法登录！";
 
 
     public static Msg makeMsg(MsgCode code, JSONObject data){

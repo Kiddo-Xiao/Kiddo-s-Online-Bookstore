@@ -6,6 +6,8 @@ import com.kiddo.bookstore_myback.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ClassName UserServiceImpl
  * @Description the implement of user service
@@ -27,4 +29,18 @@ public class UserServiceImpl implements UserService {
     public User addUser(String username, String password, String email) {
         return userDao.addUser(username,password,email);
     }
+
+    @Override
+    public List<User> getUserList(){return userDao.getUserList();}
+
+
+    @Override
+    public void addToBlacklist(Integer userId){userDao.addToBlacklist(userId);}
+
+    @Override
+    public void removeFromBlacklist(Integer userId){userDao.removeFromBlacklist(userId);}
+
+
+
+
 }

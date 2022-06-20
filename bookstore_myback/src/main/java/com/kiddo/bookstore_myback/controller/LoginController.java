@@ -55,7 +55,9 @@ public class LoginController {
             SessionUtil.setSession(obj);
             JSONObject data = JSONObject.fromObject(auth);
             data.remove(Constant.PASSWORD);
-
+            if(auth.getType()==0){
+                return MsgUtil.makeMsg(MsgCode.LOGIN_USER_ERROR,MsgUtil.IN_BLACKLIST,data);
+            }
             return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.LOGIN_SUCCESS_MSG, data);
         } else {
             return MsgUtil.makeMsg(MsgCode.LOGIN_USER_ERROR);

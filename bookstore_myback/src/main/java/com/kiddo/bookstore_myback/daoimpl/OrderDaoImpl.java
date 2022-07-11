@@ -118,6 +118,66 @@ public class OrderDaoImpl implements OrderDao {
         return orderItem;
     }
 
+    public List<Order> getOrderBetween(String from, String to) {
+        List<Order> orderList = orderRepository.getOrders();
+        List<Order> result = new ArrayList<>();
+        for (Order item : orderList) {
+            if (item.getDate().compareTo(to) <= 0 && item.getDate().compareTo(from) >= 0) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<HotSelling> getHotSelling(String from, String to) {
+        List<Order> orderList = getOrderBetween(from, to);
+        List<HotSelling> hotBooks=new ArrayList<>();
+        for (Order order : orderList) {
+            List<OrderItem> orderItemList=order.getOrderItemList();
+            for(OrderItem item:orderItemList){
+                boolean flag=false;
+                String bookName=item.getBook().getName();
+                for(HotSelling hotSelling:hotBooks){
+                    if(hotSelling.getName().equals(bookName)){
+                        flag=true;
+                        hotSelling.setNum(hotSelling.getNum()+item.getBook_num());
+                        break;
+                    }
+                }
+                if(!flag){
+                    HotSelling newHotSelling =new HotSelling(bookName,item.getBook_num());
+                    hotBooks.add(newHotSelling);
+                }
+            }
+        }
+        Collections.sort(hotBooks,(HotSelling b1,HotSelling b2)->b2.getNum()-b1.getNum());
+        return hotBooks;
+    }
+
+    @Override
+    public List<HotSelling> getHotUser(String from, String to) {
+        List<Order> orderList = getOrderBetween(from, to);
+        List<HotSelling> hotUsers=new ArrayList<>();
+        for (Order order : orderList) {
+            Integer userId=order.getUserId();
+            User user=userRepository.getUserById(userId);
+            boolean find=false;
+            for(HotSelling hotSelling: hotUsers){
+                if(hotSelling.getName().equals(user.getName())){
+                    hotSelling.setNum(hotSelling.getNum()+order.getOrder_price()); // update the price
+                    find=true;
+                    break;
+                }
+            }
+            if(!find){
+                HotSelling newHotSelling=new HotSelling(user.getName(),order.getOrder_price());
+                hotUsers.add(newHotSelling);
+            }
+        }
+        Collections.sort(hotUsers,(HotSelling h1,HotSelling h2)-> h2.getNum()-h1.getNum());
+        return hotUsers;
+    }
 
 }
 

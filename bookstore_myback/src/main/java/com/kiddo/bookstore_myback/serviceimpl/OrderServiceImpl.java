@@ -62,4 +62,16 @@ public class OrderServiceImpl implements OrderService {
     public Object getAdminDateOrder(String from, String to) {
         return orderDao.getAdminDateOrder(from,to);
     }
+
+    @Override
+    public List<HotSelling> getHotSelling(String from, String to) {
+        return orderDao.getHotSelling(from, to);
+    }
+
+    @Override
+    public List<HotSelling> getHotUser(String from, String to) {
+        return orderDao.getHotUser(from,to);
+    }
+
+
 }

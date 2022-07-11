@@ -1,0 +1,97 @@
+import React from 'react';
+import { Layout, Menu, Breadcrumb,
+    Divider,
+    Carousel,
+    Input,
+    Space} from 'antd';
+import { UserOutlined, ShoppingCartOutlined, AppstoreOutlined, BankOutlined, AccountBookOutlined} from '@ant-design/icons';
+import {withRouter, Link} from "react-router-dom";
+import {history} from "../utils/history";
+import '../css/newDetailView.css'
+import Head from "../newComponents/Header";
+import Foot from "../newComponents/Footer";
+import ManageBookDetail from "../newComponents/ManageBookDetail";
+import * as userService from '../services/userService';
+
+//侧边导航栏
+const { SubMenu } = Menu;
+//布局
+const { Header, Content, Sider, Footer } = Layout;
+
+class newManageBookDetail extends React.Component {
+
+    constructor(props) {
+        super(props);
+        console.log(this.props.history.location.state);
+    }
+    render() {
+        return(
+            <Layout>
+                {/* 头部导航栏 */}
+                <Head/>
+                <Content style={{ padding: '0 50px' }}>
+
+                    <Breadcrumb style={{ margin: '16px 0' }}>
+                        <Breadcrumb.Item>首页</Breadcrumb.Item>
+                        <Breadcrumb.Item>详情</Breadcrumb.Item>
+                        {/*<Breadcrumb.Item>支付</Breadcrumb.Item>*/}
+                    </Breadcrumb>
+
+                    <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
+                        <Sider width={200} className="site-layout-background">
+                            <Menu
+                                mode="inline"
+                                defaultSelectedKeys={['sub0']}
+                                style={{ height: '100%', borderRight: 0 }}
+                            >
+                                <Menu.Item key="sub0" icon={<BankOutlined />}>
+                                    <Link to={{pathname:'/newManageBook'}}>
+                                        书籍管理
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item key="sub1" icon={<ShoppingCartOutlined />}>
+                                    <Link to={{pathname:'/newManageUser'}}>
+                                        用户管理
+                                    </Link>
+                                </Menu.Item>
+                                <SubMenu key="sub2" icon={<AccountBookOutlined />} title="统计订单">
+                                    <Menu.Item key="sub2-1">
+                                        <Link to={{pathname:'/newManageOrder'}}>
+                                            查询订单
+                                        </Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="sub2-2">
+                                        <Link to={{pathname:'/newManageHotBook'}}>
+                                            热销榜单
+                                        </Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="sub2-3">
+                                        <Link to={{pathname:'/newManageHotUser'}}>
+                                            消费榜单
+                                        </Link>
+                                    </Menu.Item>
+                                </SubMenu>
+                                <SubMenu key="sub3" icon={<UserOutlined />} title="个人中心">
+                                    <Menu.Item key="sub3-1"
+                                               onClick={userService.logout}>
+                                        退出登录</Menu.Item>
+                                </SubMenu>
+                            </Menu>
+                        </Sider>
+
+                        {/* 中间 */}
+                        <Content className="site-layout-background"
+                                 style={{padding: 24, margin: 0, minHeight: 280,}}>
+                            <ManageBookDetail info={this.props.history.location.state}/>
+
+                        </Content>
+                    </Layout>
+                </Content>
+                <Foot/>
+            </Layout>
+
+        )
+    }
+
+}
+export default newManageBookDetail;

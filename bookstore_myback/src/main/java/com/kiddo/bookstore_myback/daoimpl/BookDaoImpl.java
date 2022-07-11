@@ -20,4 +20,27 @@ public class BookDaoImpl implements BookDao {
         return bookRepository.getBooks();
     }
 
+    @Override
+    public Book detailChange(String name, String author, String isbn, Double price, Integer number,String description){
+
+        Book book = bookRepository.getBook( isbn);
+        book.setName(name);
+        book.setAuthor(author);
+        book.setPrice(price);
+        book.setInventory(number);
+        book.setDescription(description);
+        bookRepository.save(book);
+        book = bookRepository.getBook( isbn);
+        return book;
+    }
+
+    @Override
+    public Book detailRemove( String isbn){
+
+        Book book = bookRepository.getBook( isbn);
+        bookRepository.delete(book);
+
+        return book;
+    }
+
 }

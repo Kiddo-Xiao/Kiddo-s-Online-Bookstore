@@ -1,4 +1,5 @@
 package com.kiddo.bookstore_myback.dao;
+import com.kiddo.bookstore_myback.entity.HotSelling;
 import com.kiddo.bookstore_myback.entity.Order;
 import com.kiddo.bookstore_myback.entity.OrderItem;
 
@@ -22,5 +23,9 @@ public interface OrderDao {
     List<Order> getAdminBookOrders(String bookName);
 
     Object getAdminDateOrder(String from, String to);
+
+    List<HotSelling> getHotSelling(String from, String to);
+
+    List<HotSelling> getHotUser(String from, String to);
 
 }

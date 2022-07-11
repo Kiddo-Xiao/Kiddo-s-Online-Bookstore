@@ -6,6 +6,7 @@ import com.kiddo.bookstore_myback.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.PublicKey;
 import java.util.List;
 
 /**
@@ -29,5 +30,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> getBooks() {
         return bookDao.getBooks();
+    }
+
+    @Override
+    public Book detailChange(String name, String author, String isbn, Double price, Integer number, String description){
+        return bookDao.detailChange( name,  author,  isbn,  price,  number,description);
+    }
+
+    @Override
+    public Book detailRemove( String isbn){
+        return bookDao.detailRemove(  isbn);
     }
 }

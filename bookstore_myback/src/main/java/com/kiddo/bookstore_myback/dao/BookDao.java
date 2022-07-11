@@ -8,4 +8,7 @@ public interface BookDao {
 //    Book findOne(Integer id);
 
     List<Book> getBooks();
+
+    Book detailChange(String name, String author, String isbn, Double price, Integer number, String description);
+    Book detailRemove(String isbn);
 }

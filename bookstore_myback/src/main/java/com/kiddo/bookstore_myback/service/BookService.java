@@ -10,4 +10,9 @@ public interface BookService {
 //    Book findBookById(Integer id);
 
     List<Book> getBooks();
+
+    Book detailChange(String name,String author,String isbn,Double price,Integer number,String description);
+
+    Book detailRemove(String isbn);
+
 }

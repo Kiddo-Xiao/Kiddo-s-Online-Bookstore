@@ -2,13 +2,12 @@ package com.kiddo.bookstore_myback.controller;
 import com.alibaba.fastjson.JSON;
 import com.kiddo.bookstore_myback.constant.Constant;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.kiddo.bookstore_myback.entity.HotSelling;
 import com.kiddo.bookstore_myback.entity.OrderItem;
 import com.kiddo.bookstore_myback.entity.Order;
 import com.kiddo.bookstore_myback.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     @RequestMapping("/getOrders")
-    public String getOrders() {
+    public String getOrders(@RequestBody Map params) {
         return JSON.toJSONString(orderService.getOrders(), SerializerFeature.DisableCircularReferenceDetect);
     }
 
@@ -76,6 +75,20 @@ public class OrderController {
         Integer number = (Integer) params.get(Constant.NUMBER);
 
         return orderService.addOrderItem(orderId, bookId,number);
+    }
+
+    @RequestMapping("/getHotSelling")
+    public List<HotSelling>  getHotSelling(@RequestBody Map params){
+        String from = (String) params.get("from");
+        String to = (String) params.get("to");
+        return orderService.getHotSelling(from, to);
+    }
+    //
+    @RequestMapping("/getHotUser")
+    public List<HotSelling> getHotUser(@RequestBody Map params){
+        String from = (String) params.get("from");
+        String to = (String) params.get("to");
+        return orderService.getHotUser(from, to);
     }
 
 }

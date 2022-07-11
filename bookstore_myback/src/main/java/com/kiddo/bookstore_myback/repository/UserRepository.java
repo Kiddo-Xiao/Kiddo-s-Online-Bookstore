@@ -21,5 +21,4 @@ public interface UserRepository extends JpaRepository<User,String> {
     @Query("select u from User u where u.type=:user0 or u.type=:user1 ")
     List<User> getUserList(int user0, int user1);
 
-
 }

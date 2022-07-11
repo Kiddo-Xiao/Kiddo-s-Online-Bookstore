@@ -108,3 +108,11 @@ b) 使用Router路由功能实现各个页面之间的跳转逻辑的控制
 
 #### 4.3.数据库
 使用 JDBC 直接数据库访问形式访问数据，运用 SQL 语句实现数据操作
+
+## [7.9]Version-4——终版
+### 界面展示
+#### 添加管理员功能
+
+
+https://user-images.githubusercontent.com/74357630/178174173-ffd2e5fd-272b-410f-bd2a-7903fcc62fd4.mp4
+
